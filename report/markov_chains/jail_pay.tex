@@ -1,0 +1,20 @@
+\begin{tikzpicture}[font=\small\sffamily]
+  \tikzset{my_state/.style={state, 
+                                     minimum width=1.3cm,
+                                     line width=0.13mm,
+                                     fill=gray!20!white}}
+  \tikzset{my_state2/.style={state, 
+                                     minimum width=1.7cm,
+                                     line width=0.43mm,
+                                     fill=gray!60!white}}
+                                 
+  \node[my_state2] (gotojail) {GoToJail}; 
+  \node[my_state2, below right = 1 of gotojail] (visit) {Visit};
+  
+  
+ \draw[every loop, auto=right, line width=0.3mm, >=latex, draw=red, fill=black]
+ 
+ (gotojail) edge[draw=blue, bend right]
+   node {1} (visit);
+   
+\end{tikzpicture}

@@ -1,0 +1,165 @@
+\begin{tikzpicture}[font=\small\sffamily,label=monopoly]
+  \tikzset{my_state/.style={state, 
+                                     minimum width=1.3cm,
+                                     line width=0.13mm,
+                                     fill=gray!20!white}}
+  \tikzset{my_state2/.style={state, 
+                                     minimum width=1.7cm,
+                                     line width=0.43mm,
+                                     fill=gray!60!white}}
+                                     
+  % Go
+  \node[my_state2, ] (go) {Go};  
+                                    
+  % Denmark                                 
+  \node[my_state, above right = 1 of go] (den) {Den};
+  \node[my_state, right = 1 of den] (airport1) {Air1};
+  % Belgium
+  \node[my_state, right = 1 of airport1] (bel) {Bel};
+  \node[my_state2, below right = 1 of bel] (jail) {Visit};
+  % Netherlands
+  \node[my_state, below right = 1 of jail] (neth) {Neth};
+
+  \node[my_state, below = 1 of neth] (airport2) {Air2};
+  % Spain
+  \node[my_state, below = 1 of airport2] (spain) {Sp};
+
+  \node[my_state2, below left = 1 of spain] (park) {Parking};
+  % United Kingdom
+  \node[my_state, below left = 1 of park] (uk) {UK};
+
+  \node[my_state, left = 1 of uk] (airport3) {Air3};
+  % Italy
+  \node[my_state, left = 1 of airport3] (ita) {It};
+
+  \node[my_state2, above left = 1 of ita] (gotojail) {GoToJail}; 
+  % France
+  \node[my_state, above left= 1 of gotojail] (fr) {Fr};
+
+  \node[my_state, above = 1 of fr] (airport4) {Air4};
+  % Germany
+  \node[my_state, above = 1 of airport4] (ger) {Ger};
+
+  % 3 other coins
+  % chances and community chests
+    % \node[my_state, above right = 1 of ] (chance) {Chance1};
+    % \node[my_state, above right = 1 of ] (chance2) {Chance2};
+    % \node[my_state, above right = 1 of ] (chance3) {Chance3};
+    % \node[my_state, above right = 1 of ] (chest1) {Chest1};
+    % \node[my_state, above right = 1 of ] (chest2) {Chest2};
+    % \node[my_state, above right = 1 of ] (chest3) {Chest3};
+  \node[my_state, above right = 3 of gotojail] (jailStrat) {See fig.~\ref{fig:jail_double} and~\ref{fig:jail_pay}};
+  
+ \draw[every loop, auto=right, line width=0.3mm, >=latex, draw=red, fill=black, bend right]
+ 
+ (go) edge[bend left]
+   node {} (den)
+ (go) edge[bend left=71]
+   node {} (airport1)
+ (go) edge[]
+   node {} (bel)
+   
+ (den) edge[draw=blue, bend left]
+   node {} (airport1)
+ (den) edge[draw=blue, bend left=40]
+   node {} (bel)
+ (den) edge[draw=blue]
+   node {} (jail)
+   
+ (airport1) edge[bend left]
+   node {} (bel)
+ (airport1) edge[bend left=71]
+   node {} (jail)
+ (airport1) edge[]
+   node {} (neth)
+   
+ (bel) edge[draw=blue, bend left]
+   node {} (jail)
+ (bel) edge[draw=blue, bend left=40]
+   node {} (neth)
+ (bel) edge[draw=blue]
+   node {} (airport2)
+   
+ (jail) edge[bend left]
+   node {} (neth)
+ (jail) edge[bend left=71]
+   node {} (airport2)
+ (jail) edge
+   node {} (spain)
+ 
+ (neth) edge[draw=blue, bend left]
+   node {} (airport2)
+ (neth) edge[draw=blue, bend left=40]
+   node {} (spain)
+ (neth) edge[draw=blue]
+   node {} (park)
+   
+ (airport2) edge[bend left]
+   node {} (spain)
+ (airport2) edge[bend left=71]
+   node {} (park)
+ (airport2) edge
+   node {} (uk)
+   
+ (spain) edge[draw=blue, bend left]
+   node {} (park)
+ (spain) edge[draw=blue, bend left=40]
+   node {} (uk)
+ (spain) edge[draw=blue]
+   node {} (airport3)
+   
+ (park) edge[bend left]
+   node {} (uk)
+ (park) edge[bend left=71]
+   node {} (airport3)
+ (park) edge
+   node {} (ita)
+   
+ (uk) edge[draw=blue, bend left]
+   node {} (airport3)
+ (uk) edge[draw=blue, bend left=40]
+   node {} (ita)
+ (uk) edge[draw=blue]
+   node {} (gotojail)
+   
+ (airport3) edge[bend left]
+   node {} (ita)
+ (airport3) edge[bend left=71]
+   node {} (gotojail)
+ (airport3) edge
+   node {} (fr)
+   
+ (ita) edge[draw=blue, bend left]
+   node {} (gotojail)
+ (ita) edge[draw=blue, bend left=40]
+   node {} (fr)
+ (ita) edge[draw=blue]
+   node {} (airport4)
+   
+ (gotojail) edge
+   node {} (jailStrat)
+   
+  (jailStrat) edge
+    node {} (jail)
+   
+ (fr) edge[bend left]
+   node {} (airport4)
+ (fr) edge[bend left=40]
+   node {} (ger)
+ (fr) edge
+   node {} (go)
+   
+ (airport4) edge[bend left]
+   node {} (ger)
+ (airport4) edge[bend left=71]
+   node {} (go)
+ (airport4) edge
+   node {} (den)
+   
+ (ger) edge[draw=blue, bend left]
+   node {} (go) 
+ (ger) edge[draw=blue, bend left=40]
+   node {} (den) 
+ (ger) edge[draw=blue]
+   node {} (airport1);
+\end{tikzpicture}

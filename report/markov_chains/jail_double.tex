@@ -1,0 +1,37 @@
+\begin{tikzpicture}[font=\small\sffamily]
+  \tikzset{my_state/.style={state, 
+                                     minimum width=1.3cm,
+                                     line width=0.13mm,
+                                     fill=gray!20!white}}
+  \tikzset{my_state2/.style={state, 
+                                     minimum width=1.7cm,
+                                     line width=0.43mm,
+                                     fill=gray!60!white}}
+                                 
+  \node[my_state2] (gotojail) {GoToJail}; 
+  \node[my_state2, below right = 1 of gotojail] (jail1) {Jail 1};
+  \node[my_state2, above right = 1 of jail1] (jail2) {Jail 2};
+  \node[my_state2, below right = 1 of jail2] (visit) {Visit};
+  \node[my_state2, above right = 1 of visit] (jail3) {Jail 3};
+  
+  
+  
+ \draw[every loop, auto=right, line width=0.3mm, >=latex, draw=red, fill=black, bend right]
+ 
+ (gotojail) edge[draw=blue, bend right]
+   node {1} (jail1)
+   
+ (jail1) edge[bend left]
+   node {5/6} (jail2)
+ (jail1) edge[draw=blue, bend right]
+   node {1/6} (visit)
+   
+ (jail2) edge[bend left]
+   node {5/6} (jail3)
+ (jail2) edge[draw=blue, bend right]
+   node {1/6} (visit)
+   
+  (jail3) edge[draw=blue, bend right]
+    node {1} (visit);
+   
+\end{tikzpicture}

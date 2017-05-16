@@ -1,0 +1,53 @@
+\begin{tikzpicture}[font=\small\sffamily]
+  \tikzset{my_state/.style={state, 
+                                     minimum width=2cm,
+                                     line width=0.13mm,
+                                     fill=gray!20!white}}
+                                     
+  \node[my_state, ] (uk) {UK};
+  \node[my_state, right = 3 of uk] (h) {Holland};
+  \node[my_state, below = 1 of h] (b) {Belgium};
+  \node[my_state, below = 1 of b] (f) {France};
+  \node[my_state, right = 2 of h] (g) {Germany};
+  \node[my_state, above = 1 of g] (d) {Denmark};
+  \node[my_state, below left= 1 of f] (s) {Spain};
+  \node[my_state, left = 1 of s] (p) {Portugal};
+  \node[my_state, right = 2 of f] (sw) {Suisse};
+  \node[my_state, below right = 3 of f] (it) {Italy};
+  \node[my_state, below = 1 of s] (m) {Maroc};
+  
+  \draw[every loop, auto=right, line width=0.3mm, >=latex, draw=red, fill=black,
+  bend right]
+  
+  (uk) edge[draw=blue]
+    node {} (b)
+  (uk) edge[draw=blue]
+    node {} (h)
+  (uk) edge[draw=blue]
+    node {} (f)
+    
+  (h) edge
+    node {} (g)
+    
+  (g) edge
+    node {} (d)
+  
+  (f) edge
+    node {} (sw)
+  (f) edge
+    node {} (it)
+  (f) edge
+    node {} (s)
+    
+  (s) edge
+    node {} (p)
+  (s) edge[draw=blue]
+    node {} (m)
+    
+  (b) edge
+    node {} (h)
+  (b) edge
+    node {} (f)
+  (b) edge
+    node {} (g);
+\end{tikzpicture}

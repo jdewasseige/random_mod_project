@@ -1,0 +1,169 @@
+\section{Model} % (fold)
+\label{sec:model}
+
+\subsection{The board game} % (fold)
+\label{sub:the_board_game}
+The board game \monopoly~exists since the Great Depression and has
+since been so popular that it has been translated into more than 37
+languages and is the best-selling board game in the world.
+The original idea was \enquote{\textit{to demonstrate that an economy which
+rewards wealth creation is better than one in which monopolists work
+under few constraints[1] and to promote the economic theories of Henry
+George and in particular his ideas about taxation}}~\cite{wiki:monopoly}.
+
+\todo{Describe briefly general rules of the game.}
+% subsection the_board_game (end)
+
+
+\subsection{Hypothesis and simplifications} % (fold)
+\label{sub:hypothesis_and_simplifications}
+For the sake of this project, we are going to use a simplified
+version of \monopoly. Those simplifications will be described throughout
+this section as well as the justification of why they won't affect
+the result in a significant way.
+
+\paragraph{Removing moving twice forward with doubles} % (fold)
+\label{par:removing_special_rules_with_doubles}
+The normal rules state that when a player throws a double, he can throw
+it again, with a maximum of two consecutive doubles, otherwise leading
+to jail.
+One will note that the rule stating that one can get out of jail
+by trying to make a double is not removed.
+% paragraph removing_special_rules_with_doubles (end)
+
+\paragraph{Simplifying jail outcomes} % (fold)
+\label{par:simplifying jail}
+While modeling the Markov process, it quickly appeared that the \jail~field
+may cause some issues as some other factors may lead to going there (chance
+and community chests cards) and getting out also leaves 3 possibilities.
+Indeed the player can~\cite[p.18]{mit_course_notes}
+\begin{enumerate}
+  \item stay there for three turns,
+  \emph{  
+  \item try to have a double and get out if one,
+  }
+  \emph{
+   \item pay a 50 euros fine, or
+  }
+  \item use a \enquote{Get Out of Jail Free} card.
+\end{enumerate}
+Intuitively, the first strategy seems to be the best one to play once a lot
+of buildings are around the game but the 3rd one seems best at the beginning
+since it is essential to quickly get some streets.
+
+The fact that four different strategies exist and that they are time related
+adds a lot of complexity and we therefore decided to make the assumption that
+only two choices are available for the player,
+those being the \emph{second} and the \emph{third}.
+
+% paragraph simplifying_the_jail_related_possibilities (end)
+
+% subsection hypothesis_and_simplifications (end)
+
+\newpage
+\subsection{Modeling the \emph{board} using Markov chains} % (fold)
+\label{sub:modeling_using_markov_chains}
+As seen in class, a Markovian process is an appropriate way of representing a process
+that has no memory and where the probability of being in a state at time $n$
+only depends on our state at time $n-1$.
+In this case, it becomes quickly clear that one \emph{time unit} represents one dice throw
+per player (one would normally say one turn but
+we assumed in section~\ref{sub:hypothesis_and_simplifications} that no
+re throw was allowed).
+The game will thus be represented using 40 states $(X_n)_{0\leq n\leq39}$,
+each state being one the fields.
+We immediately see that using this model combines perfectly with the game rules,
+as only the previous throw can influence the next one.
+
+By setting the \go~field to be state 0, we have the following \emph{transition matrix}
+\[
+  P = \begin{pmatrix}
+    p_{00} & p_{01} & \dots \\
+    p_{10} & p_{11} &  \\
+    \vdots      &  & \ddots
+  \end{pmatrix}
+\]
+
+\begin{enumerate}
+  \item The first and main influence for the transition probabilities
+  is the \emph{dice sum} (see table~\ref{tab:dice_sum_prob})
+  as it accounts for a majority of the fields.
+  \item Next, one can take into account the chance and community chest
+  fields as some of them implies changing your current location.
+  \item Finally, we need to consider two other special squares :
+  the Jail and GoToJail. Once on the latter there is a probability
+  of one to immediately go to Jail.
+\end{enumerate}
+
+\begin{table}
+  \begin{center}
+    \begin{tabular}{|c|c|}
+      \hline
+        \textbf{Dice Sum} & \textbf{Probability} \\
+        \hline \hline
+        2, 12 & 1/36 \\
+        \hline
+        3, 11 & 2/36 \\
+        \hline
+        4, 10 & 3/36 \\
+        \hline
+        5, 9 & 4/36 \\
+        \hline
+        6, 8 & $5/36$ \\
+        \hline
+        7 & 6/36 \\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{Probability distribution of a two dice sum.}
+  \label{tab:dice_sum_prob}
+\end{table}
+
+\todo{Explain somewhere that since the transition probabilities does not depend on
+time, that the Markov chain is irreducible and positive recurrent,
+all states are guaranteed to have a finite hitting time and thus
+stationary probabilities exist.}
+
+% \textbf{Defining a richness matrix}
+% At this point we need to think about how we will manage the changing
+% banks account of each player. 
+% Ideas:
+% - a matrix telling what each field is worth
+% - simulating many games using stationary probas
+
+\newpage
+\begin{figure}[H]
+  \begin{center}
+    \input{./markov_chains/monopoly}
+  \end{center}
+  \caption{Simplified Markov chain representing the overall board.}
+  \label{fig:markov_monop}
+\end{figure}
+
+\begin{figure}[H] % Get out of jail markov chain strategies
+  % \begin{center}
+    \begin{subfigure}[b]{0.5\textwidth}
+      \input{./markov_chains/jail_double}
+      \caption{Wait and get double strategy.}
+      \label{fig:jail_double}
+    \end{subfigure}
+    \hspace{3cm}
+    \begin{subfigure}[b]{0.24\textwidth}
+      \input{./markov_chains/jail_pay}
+      \caption{Pay fine strategy.}
+      \label{fig:jail_pay}
+    \end{subfigure}
+  % \end{center}
+  \caption{Get out of jail strategies.}
+\end{figure}
+
+\newpage
+% subsection modeling_using_markov_chains (end)
+
+
+\subsection{Modeling the player \emph{wealth}} % (fold)
+\label{sub:modeling_the_player_emph_wealth}
+
+% subsection modeling_the_player_emph_wealth (end)
+
+% section model (end)

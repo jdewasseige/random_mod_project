@@ -1,0 +1,39 @@
+\documentclass[12pt,oneside,a4paper]{article}
+
+\usepackage{./top/custom}
+\usepackage{eurosym}
+
+\newcommand{\monopoly}{\textsc{Monopoly}}
+\newcommand{\jail}{\texttt{Jail}}
+\newcommand{\go}{\texttt{Go}}
+\newcommand{\todo}[1]{[{\color{red} TODO : } #1]}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{./top/biblio.bib}
+
+\begin{document}
+% \input{./top/title.tex}
+
+% {
+% \hypersetup{linkcolor=black}
+% \setcounter{tocdepth}{2}
+% \tableofcontents
+% }
+% \newpage
+
+\input{./src/intro}
+\newpage
+\input{./src/model}
+\newpage
+\input{./src/results}
+\newpage
+\input{./src/conclusion}
+
+\newpage
+\addcontentsline{toc}{part}{References}
+\nocite{*}
+\hypersetup{urlcolor=black}
+\printbibliography
+\newpage
+
+\end{document}
