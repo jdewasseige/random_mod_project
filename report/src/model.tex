@@ -4,31 +4,40 @@
 \subsection{The board game} % (fold)
 \label{sub:the_board_game}
 The board game \monopoly~exists since the Great Depression and has
-since been so popular that it has been translated into more than 37
+become so popular that it has been translated into more than 37
 languages and is the best-selling board game in the world.
 The original idea was \enquote{\textit{to demonstrate that an economy which
 rewards wealth creation is better than one in which monopolists work
 under few constraints[1] and to promote the economic theories of Henry
 George and in particular his ideas about taxation}}~\cite{wiki:monopoly}.
 
-\todo{Describe briefly general rules of the game.}
+For those who don't know the board game \monopoly, we want to briefly 
+explain the rules at this point. 
+The game is played on a board having 40 different ``action fields'' we the player 
+can or has to perform an action. During the game the players travel around the board using 
+two dices as their mean to go forward. 
+In the  beginning of the game the players are given a certain amount of money which the player 
+can or has to use to perform an action on the ``action field'' consisting of buying the ``action field''
+as their personal property or paying diverse fees. 
+The goal of the game is to make as much money as possible and to finally get all the others players money
+so that one is the only player that is not broke. 
 % subsection the_board_game (end)
-
 
 \subsection{Hypothesis and simplifications} % (fold)
 \label{sub:hypothesis_and_simplifications}
 For the sake of this project, we are going to use a simplified
-version of \monopoly. Those simplifications will be described throughout
-this section as well as the justification of why they won't affect
-the result in a significant way.
+version of \monopoly. The simplifications we make will be described throughout
+this section as well as an explanation that the game is not affected significantly by 
+these simplifications.
 
-\paragraph{Removing moving twice forward with doubles} % (fold)
+\paragraph{Removing the rule: ``Additional turn when throwing a dice double''} % (fold)
 \label{par:removing_special_rules_with_doubles}
-The normal rules state that when a player throws a double, he can throw
-it again, with a maximum of two consecutive doubles, otherwise leading
-to jail.
-One will note that the rule stating that one can get out of jail
-by trying to make a double is not removed.
+The rules state that when a player throws a double, he has an additional turn and can throw the dice 
+again. But, throwing three doubles in a row forces the player to go to jail.
+The rule stating that one can get out of jail by trying to throw a double is not removed.
+Removing this rule for the sake of simplicity will not really affect the game outcome, since
+throwing the dice twice in one turn is very similar to throwing the dice twice in two turn in 
+terms of modeling.
 % paragraph removing_special_rules_with_doubles (end)
 
 \paragraph{Simplifying jail outcomes} % (fold)
@@ -38,23 +47,28 @@ may cause some issues as some other factors may lead to going there (chance
 and community chests cards) and getting out also leaves 3 possibilities.
 Indeed the player can~\cite[p.18]{mit_course_notes}
 \begin{enumerate}
-  \item stay there for three turns,
+  \item wait in jail for three turns to get out,
   \emph{  
-  \item try to have a double and get out if one,
+  \item try to throw a double to get out,
   }
   \emph{
-   \item pay a 50 euros fine, or
+   \item pay a 50 euros fine to get out, or
   }
   \item use a \enquote{Get Out of Jail Free} card.
 \end{enumerate}
+\todo{ I would delete this part:
 Intuitively, the first strategy seems to be the best one to play once a lot
 of buildings are around the game but the 3rd one seems best at the beginning
 since it is essential to quickly get some streets.
+}
 
 The fact that four different strategies exist and that they are time related
 adds a lot of complexity and we therefore decided to make the assumption that
 only two choices are available for the player,
 those being the \emph{second} and the \emph{third}.
+Looking at the low probabilities of the events to \emph{to wait in jail for three turns}
+and \emph{use a \enquote{Get Out of Jail Free} card} we can remove these possibilities without 
+any concerns.
 
 % paragraph simplifying_the_jail_related_possibilities (end)
 
@@ -66,16 +80,20 @@ those being the \emph{second} and the \emph{third}.
 As seen in class, a Markovian process is an appropriate way of representing a process
 that has no memory and where the probability of being in a state at time $n$
 only depends on our state at time $n-1$.
-In this case, it becomes quickly clear that one \emph{time unit} represents one dice throw
+In our model a \emph{time unit} is represented by one dice throw
 per player (one would normally say one turn but
 we assumed in section~\ref{sub:hypothesis_and_simplifications} that no
 re throw was allowed).
 The game will thus be represented using 40 states $(X_n)_{0\leq n\leq39}$,
-each state being one the fields.
-We immediately see that using this model combines perfectly with the game rules,
-as only the previous throw can influence the next one.
+each state being one the fields. 
+To conclude, it can be seen that our model satisfies all the conditions for 
+a markov chain since $E(X_n | X_{n-1},...,X_0) = E(X_n | X_{n-1})$.
+At this point, we can also notice that the markov chain is a \emph{homogenous chain}: 
+$\mathbb{P}(X_n = x | X_{n-1} = y) = \mathbb{P}(X_{n+1} = x| X_{n} = y)$ with $x,y \in \text{States}$.
+To put it in words that means that, the probablity of getting form state x to state y is the same at every 
+time during the game and does not depend on the state the player has been before having been at state x.
 
-By setting the \go~field to be state 0, we have the following \emph{transition matrix}
+By setting the \go~field to be state 0, we get the following \emph{transition matrix}
 \[
   P = \begin{pmatrix}
     p_{00} & p_{01} & \dots \\
@@ -85,13 +103,13 @@ By setting the \go~field to be state 0, we have the following \emph{transition m
 \]
 
 \begin{enumerate}
-  \item The first and main influence for the transition probabilities
-  is the \emph{dice sum} (see table~\ref{tab:dice_sum_prob})
+  \item The \emph{dice sum} (see table~\ref{tab:dice_sum_prob}) is the 
+  most decisive influence for the transition probabilities
   as it accounts for a majority of the fields.
   \item Next, one can take into account the chance and community chest
-  fields as some of them implies changing your current location.
-  \item Finally, we need to consider two other special squares :
-  the Jail and GoToJail. Once on the latter there is a probability
+  fields as some of them force the player to change their current location.
+  \item Finally, we need to consider two other special fields :
+  the Jail and GoToJail. The latter has a probability
   of one to immediately go to Jail.
 \end{enumerate}
 
@@ -120,7 +138,7 @@ By setting the \go~field to be state 0, we have the following \emph{transition m
 \end{table}
 
 \todo{Explain somewhere that since the transition probabilities does not depend on
-time, that the Markov chain is irreducible and positive recurrent,
+time - THIS IS EXPLAINED SINCE THE CHAIN IS HOMOGENOUS  --, that the Markov chain is irreducible and positive recurrent,
 all states are guaranteed to have a finite hitting time and thus
 stationary probabilities exist.}
 

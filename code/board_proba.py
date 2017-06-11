@@ -9,7 +9,7 @@ np.set_printoptions(threshold=np.nan) # this line allows to print all elements o
 
 def fillMatrix():
     """
-    Fill the two board transition matrices following their get out of jai strategy:
+    Fill the two board transition matrices following their get out of jail strategy:
     - M_DOUBLE : wait 3 times and try to make double strategy,
     - M_FINE : pay 50 euro fine and immediately get out of jail.
     """
@@ -35,9 +35,8 @@ def fillMatrix():
         # fill the two last squares with dice_prob starting in columns 0 and 1
         else:
             M_fine[i,i-n+2:l+(i-n+2)] = dice_prob 
-        
-    print(M_fine)
     return M_fine
 
 if __name__ == "__main__":
-    fillMatrix()
+    M_fine = fillMatrix()
+    print(len(M_fine[0]))
