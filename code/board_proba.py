@@ -6,6 +6,7 @@ Created on Tue May  16 2017
 """
 import numpy as np
 from discreteMarkovChain import markovChain
+import math
 np.set_printoptions(threshold=np.nan) # this line allows to print all elements of matrix
 
 def fillMatrixWithDiceProb():
@@ -39,7 +40,7 @@ def fillMatrixWithDiceProb():
     return M_fine
     
 #TODO
-#def fillMatrixWithJailAndActionCommunityCardsProb(matrix):
+def fillMatrixWithActionCommunityCardsProb(matrix):
 #    TODO: Action Cards are on the fields 2,7,17,22,33
 #            1 Step: Get the probability to stay on the action field probStay
 #            2 Step: Calculate the probabilities to go to field x having 
@@ -47,18 +48,42 @@ def fillMatrixWithDiceProb():
 #            3 Step: For every state: multiply the probability to arrive at an 
 #            action field p_arrive by probStay and add p_arrive * p_x_fromAction 
 #            to all the fields x
-
-#    probStayCommunity = ...
-#     probStayAction = ...
-#     for probRow in matrix:
-#         for i in range(len(probRow):
+     probStayCommunity = 15/17
+     probStayAction = 7/17
+     for probRow in matrix:
+         for i in range(len(probRow)):
 ##             for the community cards
-#             if(i in [2,17] and not probRow[i] == 0):
-#            
+             if(i in [2,17,33] and not probRow[i] == 0):
+                probRow[0] += 1/17*probRow[i] #go to start
+                probRow[30] += 1/17*probRow[i] #go to prison
+                probRow[i] *= probStayCommunity #reduce probability to stay on the field
 ##             for the action cards
-#             elif(i in [7,22,33] and not probRow[i] == 0):
-                 
-             
+             elif(i in [7,22,36] and not probRow[i] == 0):
+                probRow[0] += 1/17*probRow[i] #go to start
+                probRow[30] += 1/17*probRow[i] #go to prison
+                probRow[24] += 1/17*probRow[i] #Illinois Ave.
+                probRow[11] += 1/17*probRow[i] #St. Charles Place
+                probRow[39] += 1/17*probRow[i] #Boardwalk
+                probRow[5] += 1/17*probRow[i] #Reading Railroad
+                probRow[i-3] += 1/17*probRow[i] #3steps back
+                #nearest Utility
+                if(i in [7,36]):
+                    probRow[12] += 1/17*probRow[i] 
+                elif(i == 22):
+                    probRow[28] += 1/17*probRow[i] 
+                #nearest Railroad *2
+                if(i == 7):
+                    probRow[15] += 2/17*probRow[i] 
+                elif(i == 22):
+                    probRow[25] += 2/17*probRow[i] 
+                elif(i == 36):
+                    probRow[5] += 2/17*probRow[i] 
+                probRow[i] *= probStayAction #reduce probability to stay on the field
+     return matrix
+     
+def fillMatrixWithJailProb(matrix):
+    matrix[30] = matrix[10] 
+    return matrix              
     
 def calculateStationaryVector(matrix):
     """
@@ -72,5 +97,6 @@ def calculateStationaryVector(matrix):
 
 if __name__ == "__main__":
     M_fine = fillMatrixWithDiceProb()
-    print(M_fine)
+    M_fine = fillMatrixWithActionCommunityCardsProb(M_fine)
+    M_fine = fillMatrixWithJailProb(M_fine)
     print(calculateStationaryVector(M_fine))
