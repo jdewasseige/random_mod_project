@@ -27,16 +27,17 @@ def fillMatrixWithDiceProb():
     l = len(dice_prob)
     
     for i in range(40):
-        # fill until dice_prob exceeds end of row
-        if i < 40 - l - 1:
-            M_fine[i,2+i:l+(2+i)] = dice_prob
-        # fill the end of row then the beginning with the rest of dice_prob
-        elif i < n-2:
-            M_fine[i,2+i:n] = dice_prob[0:n-(2+i)]
-            M_fine[i,0:l-n+2+i] = dice_prob[n-i-2:l]
-        # fill the two last squares with dice_prob starting in columns 0 and 1
-        else:
-            M_fine[i,i-n+2:l+(i-n+2)] = dice_prob 
+        if(not i == 30):
+            # fill until dice_prob exceeds end of row
+            if i < 40 - l - 1:
+                M_fine[i,2+i:l+(2+i)] = dice_prob
+            # fill the end of row then the beginning with the rest of dice_prob
+            elif i < n-2:
+                M_fine[i,2+i:n] = dice_prob[0:n-(2+i)]
+                M_fine[i,0:l-n+2+i] = dice_prob[n-i-2:l]
+            # fill the two last squares with dice_prob starting in columns 0 and 1
+            else:
+                M_fine[i,i-n+2:l+(i-n+2)] = dice_prob 
     return M_fine
     
 #TODO
@@ -82,7 +83,8 @@ def fillMatrixWithActionCommunityCardsProb(matrix):
      return matrix
      
 def fillMatrixWithJailProb(matrix):
-    matrix[30] = matrix[10] 
+#    matrix[30] = matrix[10] 
+    matrix[30][10] = 1
     return matrix              
     
 def calculateStationaryVector(matrix):
