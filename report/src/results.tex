@@ -1,4 +1,52 @@
 \section{Results} % (fold)
 \label{sec:results}
 
+The stationary probabilities are obtained using
+the \lstinline|discreteMarkovChain| package and
+the results for both strategies are shown in
+tables~\ref{tab:statio_double} and~\ref{tab:statio_fine}.
+
+
+\newpage
+\begin{changemargin}{-0.5cm}{2cm} % stationary probabilities tables (fold)
+  {
+  \noindent\centering
+    \begin{minipage}{0.7\linewidth}
+      
+      \begin{tabular}{|c|c|}%
+         \hline
+         \bfseries State & \bfseries Stationary probability % specify table head
+         \csvreader[head to column names]{../code/statio_proba_double.csv}{}% use head of csv as column names
+         {\\\hline \state &$\proba~\%$}
+         \tabularnewline \hline
+     \end{tabular}
+     \begin{flushleft}
+       \captionof{table}{\emph{Double} strategy.}
+       \label{tab:statio_double}
+     \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.7\linewidth}
+       \begin{tabular}{|c|c|}%
+        \hline
+        \bfseries State & \bfseries Stationary probability % specify table head
+        \csvreader[head to column names]{../code/statio_proba_fine.csv}{}% use head of csv as column names
+        {\\\hline \state &$\proba~\%$}
+        \tabularnewline \hline
+    \end{tabular}
+     \begin{flushleft}
+       \captionof{table}{\emph{Fine} strategy.}
+       \label{tab:statio_fine}
+     \end{flushleft}
+    \end{minipage}
+       % \begin{tabular}{|c|c|}%
+       %  \hline
+       %  \bfseries State & \bfseries Stationary probability % specify table head
+       %  \csvreader[head to column names]{../code/statio_proba_double.csv}{}% use head of csv as column names
+       %  {\\\hline \state &$\proba~\%$}
+       %  \tabularnewline \hline
+    % \end{tabular}
+  }
+  \vspace{0.7cm}
+\end{changemargin} % stationary probabilities tables(end)
+
 % section results (end)

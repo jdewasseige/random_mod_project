@@ -11,8 +11,8 @@
   \node[my_state2] (gotojail) {GoToJail}; 
   \node[my_state2, below right = 1 of gotojail] (jail1) {Jail 1};
   \node[my_state2, above right = 1 of jail1] (jail2) {Jail 2};
-  \node[my_state2, below right = 1 of jail2] (visit) {Visit};
-  \node[my_state2, above right = 1 of visit] (jail3) {Jail 3};
+  \node[my_state2, below right = 1 of jail2] (getOut) {States 2 - 12};
+  \node[my_state2, above right = 1 of getOut] (jail3) {Jail 3};
   
   
   
@@ -24,14 +24,14 @@
  (jail1) edge[bend left]
    node {5/6} (jail2)
  (jail1) edge[draw=blue, bend right]
-   node {1/6} (visit)
+   node {1/6} (getOut)
    
  (jail2) edge[bend left]
    node {5/6} (jail3)
  (jail2) edge[draw=blue, bend right]
-   node {1/6} (visit)
+   node {1/6} (getOut)
    
   (jail3) edge[draw=blue, bend right]
-    node {1} (visit);
+    node {1} (getOut);
    
 \end{tikzpicture}
