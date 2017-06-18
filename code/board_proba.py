@@ -122,13 +122,54 @@ def calculateStationaryVector(matrix):
     markovCh = markovChain(matrix)
     markovCh.computePi('linear')
     return markovCh.pi
+    
+def createVectorForCostAndRentOfFieldsSimple():
+    rentVectorSimple = np.zeros(44,2)
+#    TODO Read In the values: [rent][cost]
+#    First40 fields + 
+#    41: having bought two train fields
+#    42: having bought three train fields
+#    43: having bought four train fields
+#    44: having bought two electricity fields
+    return rentVectorSimple
 
-if __name__ == "__main__":
+    
+def createVectorForCostAndRentOfFieldsHotels():
+    rentVectorHotels = np.zeros(44,2)
+#    TODO Read In the values: [rent][cost]
+#    First40 fields + 
+#    41: having bought two train fields
+#    42: having bought three train fields
+#    43: having bought four train fields
+#    44: having bought two electricity fields
+    return rentVectorHotels
+    
+def createAvgStatVector():
     mFine = makeMFine()
     mDoubleThrow = makeMDoubleThrow()
     mFineStatVector = calculateStationaryVector(mFine)
     mDoubleThrowStatVector = convert43statVectorTo40statVector(calculateStationaryVector(mDoubleThrow))
-    statVectorAvg = np.add(mFineStatVector, mDoubleThrowStatVector)/2
-    print(statVectorAvg)
+    return np.add(mFineStatVector, mDoubleThrowStatVector)/2
+    
+def calculateTurnsNeededToEqualizeRentAndCostSimpleOfField(n):
+    statVectorAvg = createAvgStatVector()
+    rentVectorSimple = createVectorForCostAndRentOfFieldsSimple()
+    cost = rentVectorSimple[n][1]
+    rent = rentVectorSimple[n][0]
+    probToLandOnField = statVectorAvg[n]
+    turns = int(cost/(rent*probToLandOnField))
+    return turns
+    
+def calculateTurnsNeededToEqualizeRentAndCostHotelOfField(n):
+    statVectorAvg = createAvgStatVector()
+    rentVectorHotels = createVectorForCostAndRentOfFieldsHotels()
+    cost = rentVectorHotels[n][1]
+    rent = rentVectorHotels[n][0]
+    probToLandOnField = statVectorAvg[n]
+    turns = int(cost/(rent*probToLandOnField))
+    return turns
+
+if __name__ == "__main__":
+    print(createAvgStatVector())
 
     
