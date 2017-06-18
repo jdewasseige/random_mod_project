@@ -5,6 +5,7 @@ Created on Tue May  16 2017
 @author: john
 """
 import numpy as np
+import csv
 from discreteMarkovChain import markovChain
 np.set_printoptions(threshold=np.nan) # this line allows to print all elements of matrix
 
@@ -123,6 +124,7 @@ def calculateStationaryVector(matrix):
     markovCh.computePi('linear')
     return markovCh.pi
     
+<<<<<<< HEAD
 def createVectorForCostAndRentOfFieldsSimple():
     rentVectorSimple = np.zeros(44,2)
 #    TODO Read In the values: [rent][cost]
@@ -169,7 +171,28 @@ def calculateTurnsNeededToEqualizeRentAndCostHotelOfField(n):
     turns = int(cost/(rent*probToLandOnField))
     return turns
 
+def writeDataToCsvFile():
+    # fine part
+    matrix_fine = makeMFine()
+    statio_proba_fine = calculateStationaryVector(matrix_fine)
+    with open('statio_proba_fine.csv', 'w') as csvfile:
+        fieldnames = ['state','proba']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for i in range(0,len(statio_proba_fine)):
+            writer.writerow({'state' : i,'proba' : "{:2.2f}".format(100*statio_proba_fine[i])})
+    # double part
+    matrix_double = makeMDoubleThrow()
+    statio_proba_double = convert43statVectorTo40statVector(calculateStationaryVector(matrix_double))
+    with open('statio_proba_double.csv', 'w') as csvfile:
+        fieldnames = ['state','proba']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for i in range(0,len(statio_proba_double)):
+            writer.writerow({'state' : i,'proba' : "{:2.2f}".format(100*statio_proba_double[i])})
+
 if __name__ == "__main__":
     print(createAvgStatVector())
+    writeDataToCsvFile()
 
     
