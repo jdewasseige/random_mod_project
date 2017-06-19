@@ -123,27 +123,28 @@ def calculateStationaryVector(matrix):
     markovCh = markovChain(matrix)
     markovCh.computePi('linear')
     return markovCh.pi
-    
-<<<<<<< HEAD
+
 def createVectorForCostAndRentOfFieldsSimple():
-    rentVectorSimple = np.zeros(44,2)
-#    TODO Read In the values: [rent][cost]
-#    First40 fields + 
-#    41: having bought two train fields
-#    42: having bought three train fields
-#    43: having bought four train fields
-#    44: having bought two electricity fields
+    rentVectorSimple = np.zeros((40,2))
+    with open("simpleRentAndCostMonopoly.txt") as simpleFieldsTextFile:
+        counter = 0
+        for line in simpleFieldsTextFile:
+            costRentList = line.split()
+            rentVectorSimple[counter][0] = costRentList[0]
+            rentVectorSimple[counter][1] = costRentList[1]
+            counter +=1 
     return rentVectorSimple
 
     
 def createVectorForCostAndRentOfFieldsHotels():
-    rentVectorHotels = np.zeros(44,2)
-#    TODO Read In the values: [rent][cost]
-#    First40 fields + 
-#    41: having bought two train fields
-#    42: having bought three train fields
-#    43: having bought four train fields
-#    44: having bought two electricity fields
+    rentVectorHotels = np.zeros((40,2))
+    with open("hotelRentAndCostMonopoly.txt") as simpleFieldsTextFile:
+        counter = 0
+        for line in simpleFieldsTextFile:
+            costRentList = line.split()
+            rentVectorHotels[counter][0] = costRentList[0]
+            rentVectorHotels[counter][1] = costRentList[1]
+            counter +=1 
     return rentVectorHotels
     
 def createAvgStatVector():
@@ -156,8 +157,8 @@ def createAvgStatVector():
 def calculateTurnsNeededToEqualizeRentAndCostSimpleOfField(n):
     statVectorAvg = createAvgStatVector()
     rentVectorSimple = createVectorForCostAndRentOfFieldsSimple()
-    cost = rentVectorSimple[n][1]
-    rent = rentVectorSimple[n][0]
+    cost = rentVectorSimple[n][0]
+    rent = rentVectorSimple[n][1]
     probToLandOnField = statVectorAvg[n]
     turns = int(cost/(rent*probToLandOnField))
     return turns
@@ -165,12 +166,34 @@ def calculateTurnsNeededToEqualizeRentAndCostSimpleOfField(n):
 def calculateTurnsNeededToEqualizeRentAndCostHotelOfField(n):
     statVectorAvg = createAvgStatVector()
     rentVectorHotels = createVectorForCostAndRentOfFieldsHotels()
-    cost = rentVectorHotels[n][1]
-    rent = rentVectorHotels[n][0]
+    cost = rentVectorHotels[n][0]
+    rent = rentVectorHotels[n][1]
     probToLandOnField = statVectorAvg[n]
     turns = int(cost/(rent*probToLandOnField))
     return turns
-
+    
+def calculateTurnsNeededForAllFieldsSimple():
+    turnsNeededToEqualizeVectorSimple = np.zeros(40)
+    rentVectorSimple = createVectorForCostAndRentOfFieldsSimple()
+    for i in range(len(rentVectorSimple)):
+        costAndValue = rentVectorSimple[i]
+        if(not costAndValue[0] == 0):
+            turnsNeededToEqualizeVectorSimple[i] = calculateTurnsNeededToEqualizeRentAndCostSimpleOfField(i)
+        else:
+            turnsNeededToEqualizeVectorSimple[i] = float('inf')
+    return turnsNeededToEqualizeVectorSimple
+    
+def calculateTurnsNeededForAllFieldsHotels():
+    turnsNeededToEqualizeVectorHotels = np.zeros(40)
+    rentVectorHotel = createVectorForCostAndRentOfFieldsHotels()
+    for i in range(len(rentVectorHotel)):
+        costAndValue = rentVectorHotel[i]
+        if(not costAndValue[0] == 0):
+            turnsNeededToEqualizeVectorHotels[i] = calculateTurnsNeededToEqualizeRentAndCostHotelOfField(i)
+        else:
+            turnsNeededToEqualizeVectorHotels[i] = float('inf')
+    return turnsNeededToEqualizeVectorHotels
+            
 def writeDataToCsvFile():
     # fine part
     matrix_fine = makeMFine()
@@ -190,9 +213,24 @@ def writeDataToCsvFile():
         writer.writeheader()
         for i in range(0,len(statio_proba_double)):
             writer.writerow({'state' : i,'proba' : "{:2.2f}".format(100*statio_proba_double[i])})
+            
+def showResultForTurnsNeededToEqualizeHotels():
+    print("-------------------HOTELS-----------------")
+    turnsNeededHotels = calculateTurnsNeededForAllFieldsHotels()
+    fieldsOrderedByLowestTurns = np.argsort(turnsNeededHotels)[:28]
+    print(turnsNeededHotels)
+    print(fieldsOrderedByLowestTurns)
+    
+def showResultForTurnsNeededToEqualizeSimple():
+    print("-------------------SIMPLE-----------------")
+    turnsNeededSimple = calculateTurnsNeededForAllFieldsSimple()
+    fieldsOrderedByLowestTurns = np.argsort(turnsNeededSimple)[:28]
+    print(turnsNeededSimple)
+    print(fieldsOrderedByLowestTurns)
 
 if __name__ == "__main__":
-    print(createAvgStatVector())
-    writeDataToCsvFile()
+#    writeDataToCsvFile()
+    showResultForTurnsNeededToEqualizeHotels()
+    showResultForTurnsNeededToEqualizeSimple()
 
     
