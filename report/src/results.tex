@@ -4,6 +4,12 @@
 \subsection{Stationnary probabilites} % (fold)
 \label{sub:stationnary_probabilites}
 
+First, it needs to be said that since our markov chain is homogenous, 
+the transition probabilities do not depend on time (the turn in our case).
+Also, it can be seen that the markov chain is irreducible and positive recurrent guaranteeing 
+that all states have a finite hitting time. 
+Thus, we know that a stationnary distribution exists and we can calculate it.
+
 The stationary probabilities are obtained using
 the \lstinline|discreteMarkovChain| package and
 the results for both strategies are shown in
@@ -81,7 +87,9 @@ buying all streets also the \textbf{cost for a hotel} and the resulting rent als
 
 Now, we want to try to proof or contradict the statements written above by \emph{calculating the average 
 amount of turns one player has to wait until the cost of having bought the street pays off by the rent he 
-gets} which we define as the \textbf{number of turns to equalize rent and cost}. For this we will use the stationnary probability per field, the cost and the rent. Again, the rule 
+gets} which we define as the \textbf{number of turns to equalize rent and cost}. For this we will use the stationnary probability per field, the cost and the rent. 
+The values for cost and rent we used for our calculation can be found on the officiel wikipage for monopoly 
+~\cite{wiki:monopolyRules}. Again, the rule 
 that a player can throw the dice again if he throws a double is neglected for this analysis, so that we get 
 the following formula to calculate the number of turns with $\pi_{stat}$ being the stationnary distribution.
 \[
