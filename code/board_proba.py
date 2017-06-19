@@ -193,7 +193,17 @@ def calculateTurnsNeededForAllFieldsHotels():
         else:
             turnsNeededToEqualizeVectorHotels[i] = float('inf')
     return turnsNeededToEqualizeVectorHotels
+    
+def getFieldsOrderedByLowestTurnsSimple():
+    turnsNeededSimple = calculateTurnsNeededForAllFieldsSimple()
+    fieldsOrderedByLowestTurns = np.argsort(turnsNeededSimple)[:28]
+    return fieldsOrderedByLowestTurns
             
+def getFieldsOrderedByLowestTurnsHotels():
+    turnsNeededHotels = calculateTurnsNeededForAllFieldsHotels()
+    fieldsOrderedByLowestTurns = np.argsort(turnsNeededHotels)[:28]
+    return fieldsOrderedByLowestTurns
+    
 def writeDataToCsvFile():
     # fine part
     matrix_fine = makeMFine()
@@ -214,23 +224,12 @@ def writeDataToCsvFile():
         for i in range(0,len(statio_proba_double)):
             writer.writerow({'state' : i,'proba' : "{:2.2f}".format(100*statio_proba_double[i])})
             
-def showResultForTurnsNeededToEqualizeHotels():
-    print("-------------------HOTELS-----------------")
-    turnsNeededHotels = calculateTurnsNeededForAllFieldsHotels()
-    fieldsOrderedByLowestTurns = np.argsort(turnsNeededHotels)[:28]
-    print(turnsNeededHotels)
-    print(fieldsOrderedByLowestTurns)
-    
-def showResultForTurnsNeededToEqualizeSimple():
-    print("-------------------SIMPLE-----------------")
-    turnsNeededSimple = calculateTurnsNeededForAllFieldsSimple()
-    fieldsOrderedByLowestTurns = np.argsort(turnsNeededSimple)[:28]
-    print(turnsNeededSimple)
-    print(fieldsOrderedByLowestTurns)
 
 if __name__ == "__main__":
 #    writeDataToCsvFile()
-    showResultForTurnsNeededToEqualizeHotels()
-    showResultForTurnsNeededToEqualizeSimple()
+    print(calculateTurnsNeededForAllFieldsSimple())
+    print(getFieldsOrderedByLowestTurnsSimple())
+    print(calculateTurnsNeededForAllFieldsHotels())
+    print(getFieldsOrderedByLowestTurnsHotels())
 
     
