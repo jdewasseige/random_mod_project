@@ -56,11 +56,6 @@ Indeed the player can~\cite[p.18]{mit_course_notes}
   }
   \item use a \enquote{Get Out of Jail Free} card.
 \end{enumerate}
-\todo{ I would delete this part:
-Intuitively, the first strategy seems to be the best one to play once a lot
-of buildings are around the game but the 3rd one seems best at the beginning
-since it is essential to quickly get some streets.
-}
 
 The fact that four different strategies exist and that they are time related
 adds a lot of complexity and we therefore decided to make the assumption that
@@ -138,16 +133,14 @@ By setting the \go~field to be state 0, we get the following \emph{transition ma
 \end{table}
 
 In addition we have to take into account the \emph{Community Chest Cards} and 
-the \emph{Action Cards}. \todo{Explain how that influences the probabilities.
-We have 10/17 action cards that make the player move to different fields and 
-2/17 community chest cards that make the player move. 
-The following websites are used: \url{http://monopoly.wikia.com/wiki/Community_Chest 
-and http://monopoly.wikia.com/wiki/Chance}}
-
-\todo{Explain somewhere that since the transition probabilities does not depend on
-time - THIS IS EXPLAINED SINCE THE CHAIN IS HOMOGENOUS  --, that the Markov chain is irreducible and positive recurrent,
-all states are guaranteed to have a finite hitting time and thus
-stationary probabilities exist.}
+the \emph{Chance Cards}. It is important to remind oneself that drawing an action 
+or community card can move the player to another field and will therefore change the
+transition probabilities. For the \emph{Chance Cards}, 10 out of 17 cards will move the player to another 
+field and for the \emph{Community Chest Cards}, 2 out of 17 cards will move the player to another field. 
+Using the information of the official monopoly websites for the 
+cards~\cite{monopolyChestCards},~\cite{monopolyChanceCards} we obtain new probabilities. In addition with 
+the two scenarios for the jail, we now have two transition matrixes that are represented as a markov chain
+further down.
 
 % \textbf{Defining a richness matrix}
 % At this point we need to think about how we will manage the changing
@@ -185,10 +178,5 @@ stationary probabilities exist.}
 \newpage
 % subsection modeling_using_markov_chains (end)
 
-
-\subsection{Modeling the player \emph{wealth}} % (fold)
-\label{sub:modeling_the_player_emph_wealth}
-
-% subsection modeling_the_player_emph_wealth (end)
 
 % section model (end)

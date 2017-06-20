@@ -1,6 +1,15 @@
 \section{Results} % (fold)
 \label{sec:results}
 
+\subsection{Stationnary probabilites} % (fold)
+\label{sub:stationnary_probabilites}
+
+First, it needs to be said that since our markov chain is homogenous, 
+the transition probabilities do not depend on time (the turn in our case).
+Also, it can be seen that the markov chain is irreducible and positive recurrent guaranteeing 
+that all states have a finite hitting time. 
+Thus, we know that a stationnary distribution exists and we can calculate it.
+
 The stationary probabilities are obtained using
 the \lstinline|discreteMarkovChain| package and
 the results for both strategies are shown in
@@ -47,5 +56,82 @@ tables~\ref{tab:statio_double} and~\ref{tab:statio_fine}.
   }
   \vspace{0.7cm}
 \end{changemargin} % stationary probabilities tables(end)
+
+% subsection stationnary_probabilites (end)
+
+\subsection{Most lucrative streets to buy} % (fold)
+\label{sub:most_lucrative_streets_to_buy}
+
+Whenever we play \monopoly~we have to ask us at one point whether we want to buy or not a certain street 
+that we landed on. Those who have played \monopoly~quite often know that there is that common sense that 
+says: ``Buy the orange streets - They are the best!'' 
+and ``Never buy the electricity or water factory - They are not any good''. 
+Meant by the orange streets are the three streets on the spots 16,18 and 19. The electricity and water 
+factories are the spots 12 and 28 respectively.
+
+To start with, we briefly want to explain how you can buy streets, what you can do with it and how you can 
+make money with it. Whenever a player lands on a \emph{street}, which is either a \emph{a colored street}, 
+\emph{a train station} or \emph{a factory} that is not bought yet by another player, he can buy the street 
+from the bank for a certain amount of money that we define at this point as the  \textbf{buying cost}.
+Once the street is bought, the owner of the street earns money whenever another player lands on that street. 
+This rent is defined as the \emph{Simple rent}. 
+Once a player owns all colors of a \emph{a type of colored street} or all \emph{train stations} or all 
+\emph{factories}, he will earn more than the \textbf{simple rent}. When owning all colors of a \emph{a type 
+of colored street}, the player has the ability to built houses for a certain price to increase the rent other 
+players need to pay when landing on the street. He can built up to 5 houses (= 1 hotel) per colored street 
+for a cost that we define at this point the \textbf{cost for a hotel} and will get the \textbf{hotel rent}.
+On \emph{train stations} and \emph{factories} we are not allowed to built any houses so the best possible 
+rent is the rent one earns when owning all of them. For the sake of simplicity, we will call the cost of 
+buying all streets also the \textbf{cost for a hotel} and the resulting rent also the \textbf{hotel rent}.
+
+Now, we want to try to proof or contradict the statements written above by \emph{calculating the average 
+amount of turns one player has to wait until the cost of having bought the street pays off by the rent he 
+gets} which we define as the \textbf{number of turns to equalize rent and cost}. For this we will use the stationnary probability per field, the cost and the rent. 
+The values for cost and rent we used for our calculation can be found on the officiel wikipage for monopoly 
+~\cite{wiki:monopolyRules}. Again, the rule 
+that a player can throw the dice again if he throws a double is neglected for this analysis, so that we get 
+the following formula to calculate the number of turns with $\pi_{stat}$ being the stationnary distribution.
+\[
+\text{Turns} = \frac{\text{Cost}}{\pi_{stat} \times \text{Rent}}
+\]
+We will consider two scenarios:
+\begin{itemize}
+	\item Cost = buying cost and rent = simple rent
+	\item Cost = cost for a hotel and rent = hotel rent
+\end{itemize}
+
+Let's start we our first scenario. We calculate number of turns to equalize rent and cost \ref{figure1} 
+and then we order this table in ascending order showing the ``best'' field on top. 
+Certain field have a value of infinity because they are not up for sale. We included these fields for 
+reasons of readability and they are naturally not included in \ref{figure2}.
+
+\todo{@John: Here should be the two figures for the first scenario you get the data as explained in the 
+video. Can you do the same thing you did for the stationnary probability?}
+
+Looking at spot number 15, we can see that in order to equalize the cost of this train station, a player 
+has to wait on average until the dice has thrown 298 times by other players.
+We can see directly that the best streets are the factories, whereas the orange streets are not remarkably 
+better than other streets. Does that mean that the common sense for \monopoly~is completely wrong?
+Let's have a look at our second scenario.
+
+\todo{@John: Here should be the two figures for the second scenario you get the data as explained in the 
+video. Can you do the same thing you did for the stationnary probability?}
+
+Now we see what we expected to see. The best streets are the orange streets and the factories are the worst 
+fields. In this scenario it is also remarkable how much less turns are needed to equalize the cost for 
+hotels on colored streets in comparison to the turns needed to equalize the cost for buying factories. And 
+how much less turns in general are needed to equalize the costs in comparison to the first scenario.
+
+What can we conclude? 
+It is obvious that players are never paying off the cost of buying a street in the beginning without 
+building hotels. It just takes too much time (ca. 300 turns) and the rent is too small. However, once the 
+players have built hotels the rent gets much more important since it is paying off directly (ca. 28 turns). 
+So a first result is that the hotel rent is ``10 times better'' than the simple rent.
+Having the first result in mind, we also conclude that the order of the order of the ``best streets'' in 
+the second scenario is the order a player has to look at when buying a street and thus, we can confirm 
+the ``common sense'' of \monopoly~players. 
+
+
+% subsection most_lucrative_streets_to_buy (end)
 
 % section results (end)
