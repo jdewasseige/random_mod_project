@@ -1,5 +1,25 @@
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
+During the course of Random-Modeling, we saw the abstract concepts of how to treat and predicts the 
+outcome of events of a random nature. Examples for events and variables that can be modeled by the 
+concepts taught in the course are all kind of games that depends on luck, such as a coin toss, 
+risk-calculation for insurance company and other events with an uncertain outcome. Since the course
+is largely focused on the theoretical approach, we wanted to use \textit{Markov-Chains} to model 
+a real problem. This mathematical structure is widely used in risk-modeling and was therefore the
+most convenient for us. 
+
+As a subject for the project we chose the table game \textsc{Monopoly} because it is well known and 
+there some work has already been done so we could rely on previous works. Another advantage of 
+\textsc{Monopoly} lies in the simplicity of the game's rules. The is a very limited list of rules, 
+because the main complexity comes from the diversity of different action fields. Therefore it is not
+very difficult to model the players' strategies. You easily define behaviors, so the only part to 
+be predicted is the action field on which a player arrives according to the dices. The throw of 
+dices is random variable that can be perfectly modeled by \textit{Markov-Chains}.
+
+This paper aims to compute the efficiency of the different action fields than can be ``bought'' by 
+players. There is also an estimation of the duration of the game given that one player owns a number
+of action fields and another player which has a limited amount of money and no right to buy anything.
+
 
 % section introduction (end)
