@@ -86,10 +86,10 @@ class Simulation():
             if(payement < 0):
                 self.moneyPlayer1 -= payement
 
-            print("Fields after step ", i , "(1 and 2) : ", self.fieldPlayer1, " and " , self.fieldPlayer2)
-            print("Money after step", i, "(1 and 2)  : " , self.moneyPlayer1, " and ", self.moneyPlayer2)
-            print("-------------------------------------------------------")
-            
+#            print("Fields after step ", i , "(1 and 2) : ", self.fieldPlayer1, " and " , self.fieldPlayer2)
+#            print("Money after step", i, "(1 and 2)  : " , self.moneyPlayer1, " and ", self.moneyPlayer2)
+#            print("-------------------------------------------------------")
+#            
             if(self.moneyPlayer1 < 0 or self.moneyPlayer2 < 0) :
                 self.moneyPlayer1 = max(0, self.moneyPlayer1)
                 self.moneyPlayer2 = max(0, self.moneyPlayer2)
@@ -97,7 +97,7 @@ class Simulation():
                     string = "1"
                 else:
                     string = "2"
-                print("Player",string, "is broke and the game ended after",2*i, "turns with the final result: ")
+                print("Player",string, "is broke and the game ended after",2*i, "turns.")
                 break
         return [self.moneyPlayer1, self.moneyPlayer2]
         
@@ -117,9 +117,7 @@ class Simulation():
              
     def getNewField(self, fieldBefore, matrix):
         wentOverGo = False
-        newVector = np.zeros(len(matrix[0]))
-        newVector[fieldBefore] = 1
-        vectorAfterTransition = newVector.dot(matrix)
+        vectorAfterTransition = matrix[fieldBefore]
         fieldAfter = self.getVectorAfter(vectorAfterTransition)
 #        check whether player went over go and if went to prison
         if(fieldAfter <= fieldBefore and not fieldBefore == 30):
@@ -156,9 +154,21 @@ class Simulation():
 if __name__ == "__main__":
     simMonop = Simulation()
     
-#    matrix = board_proba.makeMDoubleThrow()
-    matrix = board_proba.makeMFine()
-#    print(simMonop.getStatisticForSimulation(1000,matrix))
-    print(simMonop.run(500,matrix))
+#    PICK MATRIX
+#------------------------------------------
+    matrix = board_proba.makeMDoubleThrow()
+#    matrix = board_proba.makeMFine()
     
+#    RUN STATISTIC -> COMMENT OUT LINES 89 - 91 TO AVOID PRINT OUT OVERLOAD
+#------------------------------------------
+    statistic = simMonop.getStatisticForSimulation(1000,matrix)
+    print("------------| Player 1 wins | Player 2 wins | draw  |-------------")
+    print("------------|",statistic[0],"        |",statistic[1],"        |",statistic[2],"|--------------")
+    
+#   PLAY ONE GAME -> UNCOMMENT LINES 89 - 91 TO SEE GAME HISTORY
+#------------------------------------------
+#    result = simMonop.run(500,matrix)
+#    print("The final money distribution is: ")
+#    print("---------------| Player 1:",result[0]," | Player 2:",result[1]," |-------------")
+#    
 
