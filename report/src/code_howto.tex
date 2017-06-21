@@ -1,0 +1,64 @@
+\section{Understanding the code} % (fold)
+\label{sec:understanding_the_code}
+Now that we detailed the model and how and why we built it so,
+it seems a good idea to give some insight on how we obtained
+the result that will be presented in the next section.
+This section will therefore allow us to clearly \emph{explain the code}
+that we used throughout the entire modeling process.
+
+\paragraph{Filling in the transition matrices} % (fold)
+\label{par:filling_the_transition_matrices}
+\addcontentsline{toc}{subsection}{Filling in the transition matrices}
+As explained from a mathematical point of a view 
+in~\ref{sub:modeling_using_markov_chains}, we need to fill in the
+\emph{transition matrices} that will represent the probabilities
+of going from one state to another throughout the board.
+Note that we need to fill two matrices, one in the case
+we choose to wait and get a double in jail and one in the
+case we directly pay a fine.
+Firstly the method \lstinline|fillMatrixWithDiceProb| first fills the matrix
+with the basic dice sum probabilities (e.g. from state $i$ there is a
+$1/36$ probability to go to state $i+2$, $2/36$ to state $i+3$ and so
+forth).
+Next we continue filling in the matrices by taking into account
+the \emph{Chance} and \emph{Community chest} cards which have both
+some cards that redirects to some other fields (i.e. \emph{Chance} 10
+out of 17 cards and \emph{Community chest} 2 out of 17).
+This is done in \lstinline|fillMatrixWithActionCommunityCardsProb|.
+Finally, we take into account the strategies fine and double throw,
+respectively in the methods \lstinline|fillMFineWithJailProb|
+and \lstinline|fillMDoubleThrowJailProb|.
+
+% paragraph filling_the_transition_matrices (end)
+
+\paragraph{Getting the stationary probabilities} % (fold)
+\label{par:getting_the_stationary_probabilities}
+\addcontentsline{toc}{subsection}{Getting the stationary probabilities}
+Once the transition matrix is filled up, we can easily
+get the stationary probabilities, which we need to know
+which fields are worth \enquote{betting on}.
+Instead of solving it using the classical formula $\pi P = \pi$,
+or iterating through a few step using a starting vector $\pi_0$,
+we decided it was more efficient and simple to do it using the 
+\lstinline|markovChain| class of the \lstinline|discreteMarkovChain| module.
+We then get the stationary probabilities in the form of a vector
+in our method \lstinline|calculateStationaryVector|.
+In order to get the above mentioned package, run in command line
+\begin{center}
+  \lstinline|pip install discreteMarkovChain|
+\end{center}
+or using \lstinline|pip3| depending on your system.
+% paragraph getting_the_stationary_probabilities (end)
+
+\paragraph{Writing data to \texttt{.csv} files} % (fold)
+\label{par:writing_data_to_csv_files}
+\addcontentsline{toc}{subsection}{Writing data to \texttt{.csv} files}
+One will note the presence of a \lstinline|writeDataToCsvFile|
+method. It allows to write the data from the stationary probabilities
+vectors into two \texttt{.csv} files and later on to use those
+files with \LaTeX to get the tables~\ref{tab:statio_double}
+and~\ref{tab:statio_double}, both presented in result section~\ref{sec:results}.
+% paragraph writing_data_to_csv_files (end)
+
+
+% section understanding_the_code (end)
