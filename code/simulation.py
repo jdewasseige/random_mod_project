@@ -63,7 +63,7 @@ class Simulation():
             
         """Run the simulation, with a given maximal number of turns.
 
-        :nbMax: TODO
+        :nbMax: max Amount of turns played until players decide to accept draw
         :returns: Owings of two players at the end.
 
         """
