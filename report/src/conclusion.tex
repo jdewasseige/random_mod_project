@@ -1,26 +1,28 @@
 \section{Conclusion} % (fold)
 \label{sec:conclusion}
 
-To conclude this work on the game \textit{Monopoly} a critical evaluation of the results and its 
+To conclude this work on the game \monopoly~a critical evaluation of the results and its 
 implications is necessary. From our research on previous work we are convinced that the 
 simplifications we did to model the game do not really influence the results. 
 
 The invariant state that was computed does fit to previous works and it is legitimate to say 
-that it is correct. Some hypotheses were made based on this. 
-We can state that some streets are more efficient to win the game than others because of the 
-probability to come to those action fields for the other players and due to a lower price of
-purchase or a higher price of rent.
+that it is correct. Some further hypotheses were based on this. 
+We can state that some streets are more lucrative than other streets because of the 
+probability to land on these fields and due to a better ration of cost and rent.
 
+We should conclude that this work is a computation of the stationnary probabilities which can 
+be used to deduce a strategy to determine which streets are more favorable to buy than others.
+\todo{need a paragraph about the second part - modeling some stopping time}
+Our results rely on playing for a considerably long time because our calculations derive from 
+stationnary probabilites. If you play one game of monopoly and you wonder why having bought the ``best'' 
+streets according to our analysis does not make you the winner, keep in mind that we are dealing 
+with a model where the number of turns being played goes to infinity. So you should play a couple 
+more times to get a confirmation of our results.
 
-Finally, it is important to state that this work is a computation of the probabilities which can 
-be used to deduce a strategy to determine which streets are more favorable to buy than others. In no
-case this work represents a simulation of a game. If you only play once any other strategy is likely 
-to be as successful or even better than the one you deduce from these results. Only in the long term, 
-the advised streets are likely to turn out to be more efficient.
-
-\textit{Monopoly} is a good application to see \textsc{Markov-Chains} in action and to really 
-understand how this concept works for an application. Further works can contain estimations for 
-the duration of a game, depending on different strategies. because the strategies that were 
-chosen in this paper are simplified and do not represent real players' behavior. 
+\monopoly~is a good application of \textsc{markov chains}, because on the one hand it gives you results
+that are easy to understand and on the other hand and to better
+understand how \textsc{markov chains} can be applied to real world situations.
+\todo{Further work can contain estimations for 
+the duration of a game, depending on different strategies - WE NEED A RESULT THAT DOES THAT}. 
 
 % section conclusion (end)
