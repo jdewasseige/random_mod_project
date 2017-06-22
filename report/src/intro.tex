@@ -1,25 +1,28 @@
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-During the course of Random-Modeling, we saw the abstract concepts of how to treat and predicts the 
+During \textsc{Introduction to random modeling}, we saw abstract concepts of how to treat and predict the 
 outcome of events of a random nature. Examples for events and variables that can be modeled by the 
-concepts taught in the course are all kind of games that depends on luck, such as a coin toss, 
-risk-calculation for insurance company and other events with an uncertain outcome. Since the course
-is largely focused on the theoretical approach, we wanted to use \textit{Markov-Chains} to model 
+concepts taught in the course are all kind of games that depend on chance, such as a coin toss, 
+risk-calculation for insurance companies and other events with an uncertain outcome. Since the course
+is largely focused on the theoretical approach, we used \textsc{markov chains}	 to model 
 a real problem. This mathematical structure is widely used in risk-modeling and was therefore the
 most convenient for us. 
 
-As a subject for the project we chose the table game \textsc{Monopoly} because it is well known and 
-there some work has already been done so we could rely on previous works. Another advantage of 
-\textsc{Monopoly} lies in the simplicity of the game's rules. The is a very limited list of rules, 
-because the main complexity comes from the diversity of different action fields. Therefore it is not
-very difficult to model the players' strategies. You easily define behaviors, so the only part to 
-be predicted is the action field on which a player arrives according to the dices. The throw of 
-dices is random variable that can be perfectly modeled by \textit{Markov-Chains}.
+As a subject for the project we chose the table game \monopoly~because it is a well known board game and 
+due to already existing papers on this model, we are able to compare our results. 
+Another advantage of \monopoly~lies in the simplicity of the game's rules. 
+There is a limited list of rules so that the main complexity does not come from a large number 
+of choices the player has on his turn but from the diversity of different action fields. Therefore it is not
+very difficult to model the players' strategies. 
+The only ``random'' parts are therefore the action field on which a player lands according to the dices
+and an action card me might draw. 
+Both things can perfectly be modeled by differnt transition probabilities from one state to another.
 
-This paper aims to compute the efficiency of the different action fields than can be ``bought'' by 
-players. There is also an estimation of the duration of the game given that one player owns a number
-of action fields and another player which has a limited amount of money and no right to buy anything.
-
+This paper aims to compute a ranking of the different streets that can be bought according to their rentability. 
+In the final part we created a simplified simulation based on the probabilities given by the \textsc{Markov 
+chains}.
+It simulates a couple of games with a set of initial conditions. In this manner it is possible to forecast
+who is more likely to win depeding on which street you own.
 
 % section introduction (end)
