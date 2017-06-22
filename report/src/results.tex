@@ -24,7 +24,7 @@ tables~\ref{tab:statio_double} and~\ref{tab:statio_fine}.
       \begin{tabular}{|c|c|}%
          \hline
          \bfseries State & \bfseries Stationary probability % specify table head
-         \csvreader[head to column names]{../code/statio_proba_double.csv}{}% use head of csv as column names
+         \csvreader[head to column names]{../code/csvFiles/statio_proba_double.csv}{}% use head of csv as column names
          {\\\hline \state &$\proba~\%$}
          \tabularnewline \hline
      \end{tabular}
@@ -37,7 +37,7 @@ tables~\ref{tab:statio_double} and~\ref{tab:statio_fine}.
        \begin{tabular}{|c|c|}%
         \hline
         \bfseries State & \bfseries Stationary probability % specify table head
-        \csvreader[head to column names]{../code/statio_proba_fine.csv}{}% use head of csv as column names
+        \csvreader[head to column names]{../code/csvFiles/statio_proba_fine.csv}{}% use head of csv as column names
         {\\\hline \state &$\proba~\%$}
         \tabularnewline \hline
     \end{tabular}
@@ -46,15 +46,8 @@ tables~\ref{tab:statio_double} and~\ref{tab:statio_fine}.
        \label{tab:statio_fine}
      \end{flushleft}
     \end{minipage}
-       % \begin{tabular}{|c|c|}%
-       %  \hline
-       %  \bfseries State & \bfseries Stationary probability % specify table head
-       %  \csvreader[head to column names]{../code/statio_proba_double.csv}{}% use head of csv as column names
-       %  {\\\hline \state &$\proba~\%$}
-       %  \tabularnewline \hline
-    % \end{tabular}
   }
-  \vspace{0.7cm}
+  %\vspace{0.7cm}
 \end{changemargin} % stationary probabilities tables(end)
 
 % subsection stationnary_probabilites (end)
@@ -100,29 +93,24 @@ We will consider two scenarios:
 	\item Cost = cost for a hotel and rent = hotel rent
 \end{itemize}
 
-Let's start we our first scenario. We calculate number of turns to equalize rent and cost \ref{figure1} 
+Let's start we our first scenario.
+We calculate number of turns to equalize rent and cost in table~\ref{tab:turns_simple} 
 and then we order this table in ascending order showing the ``best'' field on top. 
 Certain field have a value of infinity because they are not up for sale. We included these fields for 
-reasons of readability and they are naturally not included in \ref{figure2}.
-
-\todo{@John: Here should be the two figures for the first scenario you get the data as explained in the 
-video. Can you do the same thing you did for the stationnary probability?}
+reasons of readability and they are naturally not included in
+the ordered table~\ref{tab:ordered_turns_simple}.
 
 Looking at spot number 15, we can see that in order to equalize the cost of this train station, a player 
 has to wait on average until the dice has thrown 298 times by other players.
 We can see directly that the best streets are the factories, whereas the orange streets are not remarkably 
 better than other streets. Does that mean that the common sense for \monopoly~is completely wrong?
-Let's have a look at our second scenario.
-
-\todo{@John: Here should be the two figures for the second scenario you get the data as explained in the 
-video. Can you do the same thing you did for the stationnary probability?}
-
+Let's have a look at our second scenario in tables~\ref{tab:turns_hotels} and~\ref{tab:ordered_turns_hotels}.
 Now we see what we expected to see. The best streets are the orange streets and the factories are the worst 
 fields. In this scenario it is also remarkable how much less turns are needed to equalize the cost for 
-hotels on colored streets in comparison to the turns needed to equalize the cost for buying factories. And 
+\emph{hotels} on colored streets in comparison to the turns needed to equalize the cost for buying factories. And 
 how much less turns in general are needed to equalize the costs in comparison to the first scenario.
 
-What can we conclude? 
+What can we \emph{conclude}? 
 It is obvious that players are never paying off the cost of buying a street in the beginning without 
 building hotels. It just takes too much time (ca. 300 turns) and the rent is too small. However, once the 
 players have built hotels the rent gets much more important since it is paying off directly (ca. 28 turns). 
@@ -130,6 +118,82 @@ So a first result is that the hotel rent is ``10 times better'' than the simple 
 Having the first result in mind, we also conclude that the order of the order of the ``best streets'' in 
 the second scenario is the order a player has to look at when buying a street and thus, we can confirm 
 the ``common sense'' of \monopoly~players. 
+
+\begin{changemargin}{-0.5cm}{2cm} % nb_turns simple and hotels  (fold)
+  {
+  \noindent\centering
+    \begin{minipage}{0.7\linewidth}
+      
+      \begin{tabular}{|c|c|}%
+         \hline
+         \bfseries State & \bfseries Number of turns % specify table head
+         \csvreader[head to column names]{../code/csvFiles/turns_simple.csv}{}% use head of csv as column names
+         {\\\hline \state & \nbTurns}
+         \tabularnewline \hline
+     \end{tabular}
+     % \begin{flushleft}
+       \captionof{table}{Number of turns to equalize \\rent and cost for \emph{simple} rent.}
+       \label{tab:turns_simple}
+     % \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.5\linewidth}
+        \begin{tabular}{|c|c|}%
+           \hline
+           \bfseries State & \bfseries Number of turns % specify table head
+           \csvreader[head to column names]{../code/csvFiles/turns_hotels.csv}{}% use head of csv as column names
+           {\\\hline \state & \nbTurns}
+           \tabularnewline \hline
+       \end{tabular}
+     %\begin{flushleft}
+       \captionof{table}{Number of turns to equalize rent and cost for \emph{hotel} rent.}
+       \label{tab:turns_hotels}
+     %\end{flushleft}
+    \end{minipage}
+  }
+  \vspace{0.7cm}
+\end{changemargin} % nb_turns simple and hotels (end)
+
+
+\begin{changemargin}{-0.2cm}{2cm} % nb_turns simple  (fold)
+  {
+  \noindent\centering
+    \begin{minipage}{0.61\linewidth}
+      \begin{center}
+         \begin{tabular}{|c|c|}%
+            \hline
+            \bfseries Rank & \bfseries State % specify table head
+            \csvreader[head to column names]{../code/csvFiles/ordered_fields_simple_turns.csv}{}% use head of csv as column names
+            {\\\hline \rank & \state}
+            \tabularnewline \hline
+        \end{tabular}
+        % \begin{flushleft}
+          \captionof{table}{\emph{Ordered} fields by number\\ of turns needed to equalize rent
+          and\\ cost for \emph{simple} rent.}
+          \label{tab:ordered_turns_simple}
+      \end{center}
+     
+     % \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.5\linewidth}
+      \begin{center}
+           \begin{tabular}{|c|c|}%
+              \hline
+              \bfseries Rank & \bfseries State % specify table head
+              \csvreader[head to column names]{../code/csvFiles/ordered_fields_hotels_turns.csv}{}% use head of csv as column names
+              {\\\hline \rank & \state}
+              \tabularnewline \hline
+          \end{tabular}
+        %\begin{flushleft}
+          \captionof{table}{\emph{Ordered} fields by number of turns needed to equalize rent
+          and cost for \emph{hotels} rent.}
+          \label{tab:ordered_turns_hotels}
+      \end{center}
+        
+     %\end{flushleft}
+    \end{minipage}
+  }
+  \vspace{0.7cm}
+\end{changemargin} % nb_turns simple (end)
 
 
 % subsection most_lucrative_streets_to_buy (end)

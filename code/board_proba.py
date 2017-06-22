@@ -205,31 +205,63 @@ def getFieldsOrderedByLowestTurnsHotels():
     return fieldsOrderedByLowestTurns
     
 def writeDataToCsvFile():
-    # fine part
+    # transition matrix fine part
     matrix_fine = makeMFine()
     statio_proba_fine = calculateStationaryVector(matrix_fine)
-    with open('statio_proba_fine.csv', 'w') as csvfile:
+    with open('./csvFiles/statio_proba_fine.csv', 'w') as csvfile:
         fieldnames = ['state','proba']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for i in range(0,len(statio_proba_fine)):
             writer.writerow({'state' : i,'proba' : "{:2.2f}".format(100*statio_proba_fine[i])})
-    # double part
+    # transition matrix double throw part
     matrix_double = makeMDoubleThrow()
     statio_proba_double = convert43statVectorTo40statVector(calculateStationaryVector(matrix_double))
-    with open('statio_proba_double.csv', 'w') as csvfile:
+    with open('./csvFiles/statio_proba_double.csv', 'w') as csvfile:
         fieldnames = ['state','proba']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for i in range(0,len(statio_proba_double)):
             writer.writerow({'state' : i,'proba' : "{:2.2f}".format(100*statio_proba_double[i])})
+    # calculate turns needed simple fields
+    turns_simple_array = calculateTurnsNeededForAllFieldsSimple()
+    with open('./csvFiles/turns_simple.csv', 'w') as csvfile:
+        fieldnames = ['state','nbTurns']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for i in range(0,len(turns_simple_array)):
+            writer.writerow({'state' : i,'nbTurns' : "{:2.0f}".format(turns_simple_array[i])}) 
+    # ordered fields by turns needed to equalize revenue simple case
+    ordered_fields_simple_turns = getFieldsOrderedByLowestTurnsSimple()
+    with open('./csvFiles/ordered_fields_simple_turns.csv', 'w') as csvfile:
+        fieldnames = ['rank', 'state']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for i in range(0,len(ordered_fields_simple_turns)):
+            writer.writerow({'rank' : i+1, 'state' : "{:2.0f}".format(ordered_fields_simple_turns[i])})
+    # calculate turns needed all fields hotels
+    turns_hotels_array = calculateTurnsNeededForAllFieldsHotels()
+    with open('./csvFiles/turns_hotels.csv', 'w') as csvfile:
+        fieldnames = ['state','nbTurns']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for i in range(0,len(statio_proba_double)):
+            writer.writerow({'state' : i,'nbTurns' : "{:2.0f}".format(turns_hotels_array[i])})
+    # ordered fields by turns needed to equalize revenue hotels case
+    ordered_fields_hotels_turns = getFieldsOrderedByLowestTurnsHotels()
+    with open('./csvFiles/ordered_fields_hotels_turns.csv', 'w') as csvfile:
+        fieldnames = ['rank', 'state']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for i in range(0,len(ordered_fields_hotels_turns)):
+            writer.writerow({'rank' : i+1, 'state' : "{:2.0f}".format(ordered_fields_hotels_turns[i])})
             
 
 if __name__ == "__main__":
-#    writeDataToCsvFile()
-    print(calculateTurnsNeededForAllFieldsSimple())
-    print(getFieldsOrderedByLowestTurnsSimple())
-    print(calculateTurnsNeededForAllFieldsHotels())
-    print(getFieldsOrderedByLowestTurnsHotels())
+    writeDataToCsvFile()
+    # print(calculateTurnsNeededForAllFieldsSimple())
+    # print(getFieldsOrderedByLowestTurnsSimple())
+    # print(calculateTurnsNeededForAllFieldsHotels())
+    # print(getFieldsOrderedByLowestTurnsHotels())
 
     
