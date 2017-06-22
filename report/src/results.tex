@@ -119,6 +119,41 @@ Having the first result in mind, we also conclude that the order of the order of
 the second scenario is the order a player has to look at when buying a street and thus, we can confirm 
 the ``common sense'' of \monopoly~players. 
 
+\subsection{Simulating} % (fold)
+\label{sub:simulating}
+Using the file \texttt{simulation.py} as explained in previous section,
+we are able to run one or more games and to get the average players win
+(note that the players have initially different fields and some constraints
+are on them, see \textsc{Python} file).
+
+\vspace{1\baselineskip}
+
+When using the \texttt{run} method, we get the following text
+\begin{center}
+  \texttt{Player 1 is broke and the game ended after 78 turns.\\
+The final money distribution is:\\
+---------------| Player 1: 0  | Player 2: 7280  |-------------|}
+\end{center}
+and note that we can also choose which strategy to use when playing.
+
+\vspace{1\baselineskip}
+
+To get the statistics for the win, losses and draws rates, we use the
+following method, giving it an argument corresponding to the number
+of simulations, \lstinline|getStatisticForSimulation| and for example
+we get after a 1000 games when the strategy is to \enquote{double throw}
+\begin{center}
+  \texttt{------------| Player 1 wins | Player 2 wins | draw  |-------------\\
+------------| 0.408         | 0.203         | 0.389 |-------------}
+\end{center}
+and in the case of 2000 games and a \enquote{fine} strategy
+\begin{center}
+  \texttt{------------| Player 1 wins | Player 2 wins | draw  |-------------\\
+------------| 0.468         | 0.2345         | 0.2975 |--------------}
+\end{center}
+which shows a lower rate of draws and a higher win for player 1.
+% subsection simulating (end)
+
 \begin{changemargin}{-0.5cm}{2cm} % nb_turns simple and hotels  (fold)
   {
   \noindent\centering
