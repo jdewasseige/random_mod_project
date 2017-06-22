@@ -2,9 +2,7 @@
 \label{sec:understanding_the_code}
 Now that we detailed the model and how and why we built it so,
 it seems a good idea to give some insight on how we obtained
-the result that will be presented in the next section.
-This section will therefore allow us to clearly \emph{explain the code}
-that we used throughout the entire modeling process.
+the result from next section.
 
 \paragraph{Filling in the transition matrices} % (fold)
 \label{par:filling_the_transition_matrices}
@@ -13,19 +11,17 @@ As explained from a mathematical point of a view
 in~\ref{sub:modeling_using_markov_chains}, we need to fill in the
 \emph{transition matrices} that will represent the probabilities
 of going from one state to another throughout the board.
-Note that we need to fill two matrices, one in the case
-we choose to wait and get a double in jail and one in the
-case we directly pay a fine.
 Firstly the method \lstinline|fillMatrixWithDiceProb| first fills the matrix
-with the basic dice sum probabilities (e.g. from state $i$ there is a
-$1/36$ probability to go to state $i+2$, $2/36$ to state $i+3$ and so
-forth).
+with the basic dice sum probabilities (see file \lstinline|board_proba.py|).
+% (e.g. from state $i$ there is a
+% $1/36$ probability to go to state $i+2$, $2/36$ to state $i+3$ and so
+% forth).
 Next we continue filling in the matrices by taking into account
 the \emph{Chance} and \emph{Community chest} cards which both have
 some cards redirecting to some other fields (i.e. \emph{Chance} 10
 out of 17 cards and \emph{Community chest} 2 out of 17).
 This is done in \lstinline|fillMatrixWithActionCommunityCardsProb|.
-Finally, we take into account the strategies fine and double throw,
+Finally, we take into account the strategies \emph{fine} and \emph{double throw},
 respectively in the methods \lstinline|fillMFineWithJailProb|
 and \lstinline|fillMDoubleThrowJailProb|.
 
@@ -44,12 +40,23 @@ we decided it was more efficient and simple to do it using the
 We then get the stationary probabilities in the form of a vector
 with our method \lstinline|calculateStationaryVector|.
 To get the above mentioned function running we need a package.
-For that, run in command line
+For that, run in command line (or use \lstinline|pip3| depending on your system)
 \begin{center}
   \lstinline|pip install discreteMarkovChain|
 \end{center}
-or use \lstinline|pip3| depending on your system.
 % paragraph getting_the_stationary_probabilities (end)
+
+\paragraph{Computing the number of turns to equalize cost and rent} % (fold)
+\label{par:computing_the_number_of_turns_to_equalize_cost_and_rent}
+Using the stationary probabilities found previously and two \texttt{.txt}
+files containing the costs of the different fields (with and without hotels),
+we are able to get a vector containing the cost and 
+rent prices of those fields in \lstinline|createVectorForCostAndRentOfFieldsSimple|.
+The next step is then to count the number of turns needed for each fields
+to equalize the cost and rent. This is done in \lstinline|calculateTurnsNeededForAllFieldsSimple|.
+The two equivalent methods used for the hotels part have the same
+name except \lstinline|Simple| is replaced by \lstinline|Hotels|.
+% paragraph computing_the_number_of_turns_to_equalize_cost_and_rent (end)
 
 \paragraph{Writing data to \texttt{.csv} files} % (fold)
 \label{par:writing_data_to_csv_files}
@@ -57,9 +64,14 @@ or use \lstinline|pip3| depending on your system.
 One will note the presence of a \lstinline|writeDataToCsvFile|
 method. It make it possible to write the data from the stationary probability
 vectors into two \texttt{.csv} files and later it enables us to use those
-files with \LaTeX to get the tables~\ref{tab:statio_double}
-and~\ref{tab:statio_double}, both presented in result section~\ref{sec:results}.
+files with \LaTeX to get the tables presented in the \emph{result} section~\ref{sec:results}.
 % paragraph writing_data_to_csv_files (end)
 
+\paragraph{Simulating} % (fold)
+\label{par:simulating}
+One can have a look at the \texttt{main} method
+in the file \lstinline|simulation.py| to enjoy various useful simulations
+(single methods are explained in comments).
+% paragraph simulating (end)
 
 % section understanding_the_code (end)
