@@ -119,41 +119,6 @@ Having the first result in mind, we also conclude that the order of the order of
 the second scenario is the order a player has to look at when buying a street and thus, we can confirm 
 the ``common sense'' of \monopoly~players. 
 
-\subsection{Simulating} % (fold)
-\label{sub:simulating}
-Using the file \texttt{simulation.py} as explained in previous section,
-we are able to run one or more games and to get the average players win
-(note that the players have initially different fields and some constraints
-are on them, see \textsc{Python} file).
-
-\vspace{1\baselineskip}
-
-When using the \texttt{run} method, we get the following text
-\begin{center}
-  \texttt{Player 1 is broke and the game ended after 78 turns.\\
-The final money distribution is:\\
----------------| Player 1: 0  | Player 2: 7280  |-------------|}
-\end{center}
-and note that we can also choose which strategy to use when playing.
-
-\vspace{1\baselineskip}
-
-To get the statistics for the win, losses and draws rates, we use the
-following method, giving it an argument corresponding to the number
-of simulations, \lstinline|getStatisticForSimulation| and for example
-we get after a 1000 games when the strategy is to \enquote{double throw}
-\begin{center}
-  \texttt{------------| Player 1 wins | Player 2 wins | draw  |-------------\\
-------------| 0.408         | 0.203         | 0.389 |-------------}
-\end{center}
-and in the case of 2000 games and a \enquote{fine} strategy
-\begin{center}
-  \texttt{------------| Player 1 wins | Player 2 wins | draw  |-------------\\
-------------| 0.468         | 0.2345         | 0.2975 |--------------}
-\end{center}
-which shows a lower rate of draws and a higher win for player 1.
-% subsection simulating (end)
-
 \begin{changemargin}{-0.5cm}{2cm} % nb_turns simple and hotels  (fold)
   {
   \noindent\centering
@@ -229,6 +194,107 @@ which shows a lower rate of draws and a higher win for player 1.
   }
   \vspace{0.7cm}
 \end{changemargin} % nb_turns simple (end)
+
+\newpage
+
+\subsection{Simulating} % (fold)
+\label{sub:simulating}
+Using the file \texttt{simulation.py} as explained in previous section,
+we are able to run one or more games of two players. 
+We will play a maximum number of 1000 turns and will get one of three results:
+
+\begin{itemize}
+	\item player 1 wins,
+	\item player 2 wins or
+	\item there is a draw between player 1 and player 2.
+\end{itemize}
+
+\noindent We start the simulation under the following conditions:
+
+\begin{enumerate}
+	\item Neither of the two players are able to buy any of the streets or able to build houses on 
+	streets they already posses.
+	\item The players will not lose or win money when drawing a \emph{chance}- or 
+	\emph{community chest} card.
+	\item Player 1 owns the orange streets with hotels and all the train stations
+	and player 2 owns the brown streets, the light blue streets and the dark blue streets
+	with hotels.
+\end{enumerate}
+
+\noindent Now we have two options to simulate the game: We can use our model using the 
+\emph{Wait and get double strategy} or the \emph{Pay fine strategy} as explained 
+in subsection~\ref{sub:modeling_using_markov_chains}.
+
+
+\noindent Let's see a simulation of the game using the \emph{Pay fine strategy}:
+
+\vspace{1\baselineskip}
+
+\begin{center}
+  \texttt{
+  Fields after step  0 (1 and 2) :  5  and  6 \\
+  Money after step 0 (1 and 2)  :  2000  and  2000	\\		
+  -------------------------------------------------------\\
+  Fields after step  1 (1 and 2) :  10  and  13\\
+  Money after step 1 (1 and 2)  :  2000  and  2000\\
+  -------------------------------------------------------\\
+  Fields after step  2 (1 and 2) :  16  and  21\\
+  Money after step 2 (1 and 2)  :  2000  and  2000\\
+  -------------------------------------------------------\\
+  Fields after step  3 (1 and 2) :  23  and  28\\
+  Money after step 3 (1 and 2)  :  2000  and  2000\\
+  -------------------------------------------------------\\
+  ...\\
+  -------------------------------------------------------\\
+  Fields after step  42 (1 and 2) :  28  and  33\\
+  Money after step 42 (1 and 2)  :  830  and  6120\\
+  -------------------------------------------------------\\
+  Fields after step  43 (1 and 2) :  33  and  1\\
+  Money after step 43 (1 and 2)  :  830  and  6320\\
+  -------------------------------------------------------\\
+  Fields after step  44 (1 and 2) :  39  and  7\\
+  Money after step 44 (1 and 2)  :  -1170  and  8320\\
+  -------------------------------------------------------\\
+  Player 1 is broke and the game ended after 88 turns.\\
+  The final money distribution is: \\
+  ---------------| Player 1: 0  | Player 2: 8320  |-------------}
+\end{center}
+
+\vspace{1\baselineskip}
+
+Since simulating only one game is not very representive to decide which 
+player has the better initial starting conditions, we also implemented 
+a function \lstinline|getStatisticForSimulation| that allows us to get a statistic 
+when running the game a thousand or so times. 
+
+After 1000 games playing the game with the \emph{Wait and get double strategy}, we 
+get:
+
+\vspace{1\baselineskip}
+
+\begin{center}
+  \texttt{------------| Player 1 wins | Player 2 wins | draw  |-------------\\
+------------|  0.384        | 0.246         | 0.370 |-------------}
+\end{center}
+
+\vspace{1\baselineskip}
+
+and when playing the \emph{Pay fine strategy.} in the case of 1000 games and a \enquote{fine} strategy
+we get:
+
+\vspace{1\baselineskip}
+
+\begin{center}
+  \texttt{------------| Player 1 wins | Player 2 wins | draw  |-------------\\
+------------| 0.465          | 0.221        | 0.314 |--------------}
+\end{center}
+
+\vspace{1\baselineskip}
+
+We can see that player one has the better starting conditions even if it was player two who
+won our single game. The \emph{Wait and get double strategy} seems to support draws between the
+two players which is not surprising since it slows down the game because players stay longer in jail.
+% subsection simulating (end)
 
 
 % subsection most_lucrative_streets_to_buy (end)

@@ -86,9 +86,9 @@ class Simulation():
             if(payement < 0):
                 self.moneyPlayer1 -= payement
 
-#            print("Fields after step ", i , "(1 and 2) : ", self.fieldPlayer1, " and " , self.fieldPlayer2)
-#            print("Money after step", i, "(1 and 2)  : " , self.moneyPlayer1, " and ", self.moneyPlayer2)
-#            print("-------------------------------------------------------")
+            print("Fields after step ", i , "(1 and 2) : ", self.fieldPlayer1, " and " , self.fieldPlayer2)
+            print("Money after step", i, "(1 and 2)  : " , self.moneyPlayer1, " and ", self.moneyPlayer2)
+            print("-------------------------------------------------------")
 #            
             if(self.moneyPlayer1 < 0 or self.moneyPlayer2 < 0) :
                 self.moneyPlayer1 = max(0, self.moneyPlayer1)
@@ -156,19 +156,19 @@ if __name__ == "__main__":
     
 #    PICK MATRIX
 #------------------------------------------
-    matrix = board_proba.makeMDoubleThrow()
-#    matrix = board_proba.makeMFine()
+#    matrix = board_proba.makeMDoubleThrow()
+    matrix = board_proba.makeMFine()
     
 #    RUN STATISTIC -> COMMENT OUT LINES 89 - 91 TO AVOID PRINT OUT OVERLOAD
 #------------------------------------------
-    statistic = simMonop.getStatisticForSimulation(1000,matrix)
-    print("------------| Player 1 wins | Player 2 wins | draw  |-------------")
-    print("------------|",statistic[0],"        |",statistic[1],"        |",statistic[2],"|--------------")
-    
+#    statistic = simMonop.getStatisticForSimulation(1000,matrix)
+#    print("------------| Player 1 wins | Player 2 wins | draw  |-------------")
+#    print("------------|",statistic[0],"        |",statistic[1],"        |",statistic[2],"|--------------")
+#    
 #   PLAY ONE GAME -> UNCOMMENT LINES 89 - 91 TO SEE GAME HISTORY
 #------------------------------------------
-#    result = simMonop.run(500,matrix)
-#    print("The final money distribution is: ")
-#    print("---------------| Player 1:",result[0]," | Player 2:",result[1]," |-------------")
-#    
+    result = simMonop.run(500,matrix)
+    print("The final money distribution is: ")
+    print("---------------| Player 1:",result[0]," | Player 2:",result[1]," |-------------")
+
 
