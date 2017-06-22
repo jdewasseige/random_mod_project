@@ -5,7 +5,7 @@ During \textsc{Introduction to random modeling}, we saw abstract concepts of how
 outcome of events of a random nature. Examples for events and variables that can be modeled by the 
 concepts taught in the course are all kind of games that depend on chance, such as a coin toss, 
 risk-calculation for insurance companies and other events with an uncertain outcome. Since the course
-is largely focused on the theoretical approach, we used \textsc{markov chains}	 to model 
+is largely focused on the theoretical approach, we used \textsc{Markov chains}	 to model 
 a real problem. This mathematical structure is widely used in risk-modeling and was therefore the
 most convenient for us. 
 
@@ -17,12 +17,25 @@ of choices the player has on his turn but from the diversity of different action
 very difficult to model the players' strategies. 
 The only ``random'' parts are therefore the action field on which a player lands according to the dices
 and an action card me might draw. 
-Both things can perfectly be modeled by differnt transition probabilities from one state to another.
+Both things can perfectly be modeled by different transition probabilities from one state to another.
 
 This paper aims to compute a ranking of the different streets that can be bought according to their rentability. 
 In the final part we created a simplified simulation based on the probabilities given by the \textsc{Markov 
 chains}.
 It simulates a couple of games with a set of initial conditions. In this manner it is possible to forecast
-who is more likely to win depeding on which street you own.
+who is more likely to win depending on which street you own.
+
+This report will lead you through our work by first \emph{introducing} the board
+game, explaining the \emph{hypothesis} we decided to apply and how it
+was \emph{modeled} using Markov chains, all of this in section~\ref{sec:model}.
+Then, the reader will find in section~\ref{sec:understanding_the_code}
+detailed explanation on how the \emph{code} works and how it relates
+to what we want to find in the results.
+Next the \emph{results} are presented in section~\ref{sec:results}.
+In this section, the most important results we obtained will be 
+presented using tables representing the fields of the board
+and those will be analyzed.
+Finally, the last section~\ref{sec:conclusion}, will allow us
+to draw a \emph{conclusion} and think about \emph{further work}.
 
 % section introduction (end)
